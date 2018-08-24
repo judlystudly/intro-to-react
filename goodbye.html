@@ -4,24 +4,63 @@
     <title>My First React App</title>
   </head>
   <body>
-     <div id="goodbye"></div>
+     <div id='goodbye'></div>
+     <div id="mood"></div>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.1.0/umd/react.development.js"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.1.0/umd/react-dom.development.js"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
      <script type="text/babel">
         class Goodbye extends React.Component {
-            render() {
-              return (  
-                <div>
-                <h1>Goodbye User</h1>
-                </div>
-              );  
-            }
+        render() {
+          return (
+            <div>
+               <h1>Goodbye {this.props.name}!</h1>
+            </div>
+          );
         }
+      }
 
-        ReactDOM.render (
-            <Goodbye />, document.getElementById("goodbye")
+      ReactDOM.render(
+          <Goodbye name="User"/>, document.getElementById('goodbye')
+      );
+
+    </script>
+     <script type="text/babel">
+
+        class Moody extends React.Component {
+            constructor(props){
+           super(props);
+           this.state = {
+             number: 1
+           }
+         }
+          render() {
+            return (
+              <div>
+                <img src={this.props.image} alt="wave goodbye"/>
+                <h2>Current mood: {this.props.mood}</h2>
+                <h3>Number of goodbyes: {this.state.number}</h3>
+                <p>Current Date: {this.props.date.toLocaleDateString()}</p>
+              </div>
+            );
+          }
+        }
+  
+        const info = {
+          date: new Date(),
+          image: 'https://media.istockphoto.com/vectors/hand-waving-goodbye-vector-illustration-in-round-circle-isolated-vector-id878260056?k=6&m=878260056&s=612x612&w=0&h=9ziY578yuTfCHUc-kUjLV1Ix2xIPafA1vQEMnN6EqCE=',
+        }
+  
+        Moody.defaultProps = {
+          mood: "Happy"
+        }
+  
+        ReactDOM.render(
+          <Moody
+            date={info.date}
+            image={info.image}/>,document.getElementById('mood')
         );
-     </script>
+  
+      </script>
   </body>
 </html>
